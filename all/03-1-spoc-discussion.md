@@ -32,6 +32,96 @@ buddy system:　分配内存速度快，没有外碎片，但是会产生内碎�
 ## 小组思考题
 
 请参考ucore lab2代码，采用`struct pmm_manager` 根据你的`学号 mod 4`的结果值，选择四种（0:最优匹配，1:最差匹配，2:最先匹配，3:buddy systemm）分配算法中的一种或多种，在应用程序层面(可以 用python,ruby,C++，C，LISP等高语言)来实现，给出你的设思路，并给出测试用例。 (spoc)
+```
+SIZE = 20
+
+class Node:
+    start = 0
+    size = 2 ** SIZE
+    no = 1
+    
+    def __init__(self, st, sz, n):
+        self.start = st
+        self.size = sz
+        self.no = n
+
+free = []
+used = []
+def log(x):
+    n, k = 0, 1
+    while (k < x):
+        n += 1
+        k += k
+    return n
+
+def min(x, y):
+    if (x < y):
+        return x
+    else:
+        return y
+
+def malloc(size):
+    n = log(size)
+    k = n
+    while (k <= SIZE and len(free[k]) == 0):
+        k += 1
+    if (k > SIZE):
+        return None
+
+    node = free[k][0]
+    free[k] = free[k][1:]
+    while (k > n):
+        free[k - 1].append(Node(node.start, node.size / 2, node.no * 2))
+        node = Node(node.start + node.size / 2, node.size / 2, node.no * 2 + 1)
+        k -= 1
+    used[n].append(node)
+    print 'allocating [', node.start, ',', node.size, ']'
+    return node
+
+def mfree(node):
+    print 'freeing [', node.start, ',', node.size, ']'
+    n = log(node.size)
+    used[n].remove(node)
+    while True:
+        pair = None
+        for x in free[n]:
+            if (x.no == node.no ^ 1):
+                pair = x
+                break
+        if (pair == None):
+            break
+        free[n].remove(pair)
+        node.start = min(node.start, pair.start)
+        node.size *= 2
+        node.no /= 2
+        n += 1
+    free[n].append(node)
+
+def print_alloc():
+    print 'printing free memory blocks'
+    for i in xrange(0, 21):
+        for x in free[i]:
+            print '[', x.start, ',', x.size, ']'
+    print
+
+for i in xrange(0, 21):
+    free.append([])
+    used.append([])
+free[SIZE].append(Node(0, 2**SIZE, 1))
+x = malloc(123)
+print_alloc()
+y = malloc(1432)
+print_alloc()
+z = malloc(24320)
+print_alloc()
+mfree(y)
+print_alloc()
+mfree(x)
+print_alloc()
+mfree(z)
+print_alloc()
+```
+
 
 ```
 如何表示空闲块？ 如何表示空闲块列表？ 
