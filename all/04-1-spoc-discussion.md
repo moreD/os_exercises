@@ -35,6 +35,39 @@ time ./goodlocality
 ```
 可以看到其执行时间。
 
+code of bad_locality:
+```
+#include <stdio.h>
+#define NUM 1024
+#define COUNT 10
+int A[NUM][NUM];
+void main (void) {
+  int i,j,k;
+  for (k = 0; k<COUNT; k++)
+  for (i = 0; i < NUM; i++)
+  for (j = 0; j < NUM; j++)
+      A[i][j] = i+j;
+  printf("%d count computing over!\n",i*j*k);
+}
+```
+
+excution time comparison:
+```
+mored@moreD-Debian:~/workspace/os_exercises/code$ time ./good_locality 
+10485760 count computing over!
+
+real    0m0.039s
+user    0m0.036s
+sys     0m0.000s
+mored@moreD-Debian:~/workspace/os_exercises/code$ time ./bad_locality 
+10485760 count computing over!
+
+real    0m0.178s
+user    0m0.168s
+sys     0m0.008s
+mored@moreD-Debian:~/workspace/os_exercises/code$
+```
+
 ## 小组思考题目
 ----
 
