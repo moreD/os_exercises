@@ -65,7 +65,17 @@ https://github.com/chyyuu/ucore_lab/blob/master/related_info/lab1/lab1-boot-with
 
 > 注意，请关注：内核如何创建用户进程的？用户进程是如何在用户态开始执行的？用户态的堆栈是保存在哪里的？
 
+```
+创建进程：kernel_thread -> init_main -> user_main -> kernel_execve，然后通过系统调用SYS_EXEC创建进程
+用户态执行：在load_icode的时候在调用栈帧中设置了用户态的CS和DS，系统调用iret时变进入了用户态开始执行
+用户态堆栈：在进程页表中的虚拟地址是USTACKTOP
+```
+
 阅读代码，在现有基础上再增加一个用户进程A，并通过增加cprintf函数到ucore代码中，
 能够把个人思考题和上述知识点中的内容展示出来：即在ucore运行过程中通过`cprintf`函数来完整地展现出来进程A相关的动态执行和内部数据/状态变化的细节。(约全面细致约好)
 
 请完成如下练习，完成代码填写，并形成spoc练习报告
+
+```
+练习的exercise project已改
+```
