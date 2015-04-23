@@ -56,6 +56,8 @@
 　- response time 响应时间
 　- wait time　等待时间
 
+见[repo](https://github.com/moreD/ucore_lab)中的related_info/lab6/scheduler-homework.py
+
 ### 对模拟环境的抽象
 - 任务/进程，及其执行时间
   Job 0 (length = 1)
