@@ -40,10 +40,10 @@
 * [同步](all/9-sync.md)
     * [lec17 在线练习](all/07-1-quiz.md)
     * [lec17 SPOC讨论](all/07-1-spoc-discussion.md)    
-* [信号量](all/10-sem.md)
-    * [lec18 在线练习](all/08-1-quiz.md)
+    * [lec18 SPOC讨论](all/07-2-spoc-discussion.md)  
+    * [lab7 SPOC讨论](all/07-3-lab7-spoc-discussion.md)          
 * [死锁和进程间通信](all/11-deadlock.md)
-    * [lec19 在线练习](all/09-1-quiz.md)
+    * [lec20 SPOC讨论](all/08-1-spoc-discussion.md)
 * [文件系统](all/12-filesystem.md)
 * [I/O子系统](all/13-io.md)
 
